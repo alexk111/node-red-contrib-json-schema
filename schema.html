@@ -63,7 +63,7 @@
                     data:        that.editor.getValue(),
 
                     success: function (resp) {
-                      $("#node-input-info").val( resp.md.markdown.map( (d) => { return d.content }).join("\n") );
+                      $("#node-input-info").val( resp.md.markdown.map( (d) => { return d.content }).join("\n---\n") );
                       $("#node-input-schematitle").val( resp.md.schema && resp.md.schema[0] && resp.md.schema[0].content && resp.md.schema[0].content.title );
 
                       RED.notify("JsonSchemaValidatorWithDocu Schema update info field", {
@@ -139,16 +139,16 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-checkentireobject" width="min-width: 200px;">
-                <span>Check object not property?</span>
-            </label>
+        <label for="node-input-checkentireobject" style="min-width: 160px;">
+          Validate entire object?
+        </label>
         <input type="checkbox" id="node-input-checkentireobject" style="display:inline-block; width:15px; vertical-align:baseline;">
     </div>
 
     <div class="form-row" style="margin-bottom: 0px;">
         <label for="node-input-func"><i class="fa fa-wrench"></i> JSON Schema</label>
-        <input type="hidden" id="node-input-func" autofocus="autofocus">
-        <input type="hidden" id="node-input-noerr">
+        <input type="hidden" id="node-input-func" autofocus="autofocus"/>
+        <input type="hidden" id="node-input-noerr"/>
     </div>
     <div class="form-row node-text-editor-row">
         <div style="height: 250px;" class="node-text-editor" id="node-input-func-editor"></div>
@@ -157,5 +157,5 @@
 
 <script type="text/x-red" data-help-name="JsonSchemaValidatorWithDocu">
     <p>JSON Schema validator</p>
-    <p>Put your JSON Schema on editor or in msg.schema and node will validate msg.payload. Error is returned on msg.error.</p>
+    <p>Validate input based on schema. Schema can also be passed in as JSON object on `msg.schema`. If validation fails, an exception is raised.</p>
 </script>

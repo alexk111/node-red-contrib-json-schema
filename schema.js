@@ -85,16 +85,18 @@ module.exports = function (RED) {
                                 md: markdown
                             })
                         }).catch(err => {
+                            console.error(err);
                             res.status(500).send(err.toString());
-                            node.error("ClientCode: Submission failed: " +
+                            node.error("SchemaDocu: Submission failed: " +
                                 err.toString())
                         })                    
                     } else {
                         res.sendStatus(404);
                     }
                 } catch (err) {
+                    console.error(err);
                     res.status(500).send(err.toString());
-                    node.error("ClientCode: Submission failed: " +
+                    node.error("JsonSchemaValid: Submission failed: " +
                         err.toString())
                 }
             } else {

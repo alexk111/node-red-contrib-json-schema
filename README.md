@@ -1,4 +1,13 @@
-**Built upon [node-red-contrib-full-msg-json-schema-validation](https://github.com/oarroyog/node-red-contrib-json-schema)**
+**Built upon [node-red-contrib-full-msg-json-schema-validation](https://github.com/oarroyog/node-red-contrib-json-schema), origial readme follows**
+
+This validation node does two more things:
+
+- valid the *entire* object, previously it was only possible to validate a property on the object
+- generates documentation of the schema and replaces the info details of the node
+
+
+
+---
 
 # node-red-contrib-json-full-schema-validator
 JSON Full Schema validator for Node Red is pretty easy to use.
