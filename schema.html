@@ -53,7 +53,12 @@
                 } else {
                     $("#node-input-property").val("payload")
                 }
-            })
+            });
+            
+            $('#node-input-generate-md-but').on('click', (e) => {
+                e.preventDefault();
+                
+            });
         },
 
         oneditsave: function() {
@@ -90,9 +95,13 @@
 </script>
 
 <script type="text/x-red" data-template-name="JsonSchemaValidatorWithDocu">
+
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+        
+        <button id="node-input-generate-md-but"
+                    class="red-ui-button">Generate Markdown</button>
     </div>
     
     <div class="form-row">
