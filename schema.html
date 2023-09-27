@@ -1,28 +1,25 @@
 <script type="text/javascript">
-    /*global RED*/
     RED.nodes.registerType('JsonSchemaValidatorWithDocu', {
         category: 'function',
         inputs: 1,
         outputs: 1,
-        color: "#debd5c",
-        icon: "function.png",
+        color: "#33aa11",
+        icon: "font-awesome/fa-check-circle-o",
         paletteLabel: "Json Full-Body Schema Validator",
         defaults: {
-            name: {
-                value: ""
-            },
+            name: {value: "" },
             property: {
                 value:"payload", 
                 required:false, 
             },
             propertyType: { value:"msg" },
             checkentireobject: { value: false },
-            func: {
-                value: ""
-            }
+            func: { value: "" },
+            info: { value: "" },
+            schematitle: { value: "" },
         },
         label: function() {
-            return this.name || "JSON Full Schema validator";
+            return this.name || this.schematitle || this.type;
         },
         oneditprepare: function() {
             var that = this;
@@ -47,18 +44,45 @@
             this.editor.focus();
 
             $('#node-input-checkentireobject').on('change', () => {
-                alert("asdasd")
                 if ( $('#node-input-checkentireobject').is(":checked") ) {
-                    $("#node-input-property").val("")
+                    $("#node-input-property").typedInput('value', "")
                 } else {
-                    $("#node-input-property").val("payload")
+                    $("#node-input-property").typedInput('value', "payload");
                 }
             });
+            
+            var nodeid = this.id;
             
             $('#node-input-generate-md-but').on('click', (e) => {
                 e.preventDefault();
                 
-            });
+                $.ajax({
+                    url:         "JsonSchemaValidatorWithDocu/" + nodeid,
+                    type:        "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data:        that.editor.getValue(),
+
+                    success: function (resp) {
+                      $("#node-input-info").val( resp.md.markdown.map( (d) => { return d.content }).join("\n") );
+                      $("#node-input-schematitle").val( resp.md.schema && resp.md.schema[0] && resp.md.schema[0].content && resp.md.schema[0].content.title );
+
+                      RED.notify("JsonSchemaValidatorWithDocu Schema update info field", {
+                        type: "success",
+                        id: nodeid,
+                        timeout: 3000
+                      });
+                    },
+
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      RED.notify("JsonSchemaValidatorWithDocu Schema Invalid: " +
+                                textStatus, {
+                        type: "error",
+                        id: nodeid,
+                        timeout: 3000
+                      });
+                    }
+                });
+            });                
         },
 
         oneditsave: function() {
@@ -98,10 +122,14 @@
 
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-        
-        <button id="node-input-generate-md-but"
-                    class="red-ui-button">Generate Markdown</button>
+        <input type="text" id="node-input-name" placeholder="Name"/>
+    </div>
+
+    <div class="form-row">
+         <button id="node-input-generate-md-but"
+                 class="red-ui-button">Generate Documentation</button>
+         <input type="hidden" id="node-input-info"/>
+         <input type="hidden" id="node-input-schematitle"/>
     </div>
     
     <div class="form-row">

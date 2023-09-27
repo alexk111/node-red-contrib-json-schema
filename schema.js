@@ -67,20 +67,39 @@ module.exports = function (RED) {
         });
     }
     RED.nodes.registerType("JsonSchemaValidatorWithDocu", JsonSchemaValidator);
+
+    RED.httpAdmin.post("/JsonSchemaValidatorWithDocu/:id",
+        RED.auth.needsPermission("JsonSchemaValidatorWithDocu.write"),
+        (req, res) => {
+            var node = RED.nodes.getNode(req.params.id);
+            if (node != null) {
+                try {
+                    if (req.body && node.type == "JsonSchemaValidatorWithDocu") {
+                        // const { jsonschema2md } = require('@adobe/jsonschema2md');
+                        import('@adobe/jsonschema2md').then( (module) => {
+                            const markdown = module.jsonschema2md(req.body, {
+                                includeReadme: false,
+                            });
+
+                            res.status(200).send({
+                                md: markdown
+                            })
+                        }).catch(err => {
+                            res.status(500).send(err.toString());
+                            node.error("ClientCode: Submission failed: " +
+                                err.toString())
+                        })                    
+                    } else {
+                        res.sendStatus(404);
+                    }
+                } catch (err) {
+                    res.status(500).send(err.toString());
+                    node.error("ClientCode: Submission failed: " +
+                        err.toString())
+                }
+            } else {
+                res.sendStatus(404);
+            }
+        });
+
 };
-
-
-/*
-[
-    {
-        "id": "57b346100c086dbe",
-        "type": "comment",
-        "z": "a7a81bcd7159a826",
-        "name": "Hello WOcl",
-        "info": "Hello whdsad\nsadasd\na\nsadasdasdasd\n\n\nthis is a commot.",
-        "x": 1646,
-        "y": 577,
-        "wires": []
-    }
-]
-*/
