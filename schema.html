@@ -1,18 +1,22 @@
 <script type="text/javascript">
     /*global RED*/
-    RED.nodes.registerType('json-full-schema-validator', {
+    RED.nodes.registerType('JsonSchemaValidatorWithDocu', {
         category: 'function',
         inputs: 1,
-        outputs: 2,
+        outputs: 1,
         color: "#debd5c",
         icon: "function.png",
-        paletteLabel: "json full schema validator",
+        paletteLabel: "Json Full-Body Schema Validator",
         defaults: {
             name: {
                 value: ""
             },
-            property: {value:"payload", required:true, validate: RED.validators.typedInput("propertyType")},
+            property: {
+                value:"payload", 
+                required:false, 
+            },
             propertyType: { value:"msg" },
+            checkentireobject: { value: false },
             func: {
                 value: ""
             }
@@ -22,21 +26,36 @@
         },
         oneditprepare: function() {
             var that = this;
-            $("#node-input-property").typedInput({default:this.propertyType||'msg',types:['msg','flow','global','jsonata']});
+            $("#node-input-property").typedInput({
+                default:this.propertyType||'msg',
+                types:['msg','flow','global','jsonata','env']
+            });
+
             this.editor = RED.editor.createEditor({
                 id: 'node-input-func-editor',
-                mode: 'ace/mode/javascript',
+                mode: 'ace/mode/json',
                 value: $("#node-input-func").val()
             });
+
             RED.library.create({
                 url: "functions", // where to get the data from
                 type: "schema", // the type of object the library is for
                 editor: this.editor, // the field name the main text body goes to
-                mode: "ace/mode/javascript",
+                mode: "ace/mode/json",
                 fields: ['name']
             });
             this.editor.focus();
+
+            $('#node-input-checkentireobject').on('change', () => {
+                alert("asdasd")
+                if ( $('#node-input-checkentireobject').is(":checked") ) {
+                    $("#node-input-property").val("")
+                } else {
+                    $("#node-input-property").val("payload")
+                }
+            })
         },
+
         oneditsave: function() {
             var annot = this.editor.getSession().getAnnotations();
             this.noerr = 0;
@@ -47,11 +66,15 @@
                     this.noerr = annot.length;
                 }
             }
+            
             $("#node-input-func").val(this.editor.getValue());
+            this.editor.destroy();
             delete this.editor;
+
             this.propertyType = $("#node-input-property").typedInput('type');
             $("#node-input-propertyType").val(this.propertyType);
         },
+
         oneditresize: function(size) {
             var rows = $("#dialog-form>div:not(.node-text-editor-row)");
             var height = $("#dialog-form").height();
@@ -66,16 +89,25 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="json-full-schema-validator">
+<script type="text/x-red" data-template-name="JsonSchemaValidatorWithDocu">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    
     <div class="form-row">
         <label for="node-input-property">Property</label>
         <input type="text" id="node-input-property" style="width: 100%"/>
 		<input type="hidden" id="node-input-propertyType"/>
     </div>
+
+    <div class="form-row">
+        <label for="node-input-checkentireobject" width="min-width: 200px;">
+                <span>Check object not property?</span>
+            </label>
+        <input type="checkbox" id="node-input-checkentireobject" style="display:inline-block; width:15px; vertical-align:baseline;">
+    </div>
+
     <div class="form-row" style="margin-bottom: 0px;">
         <label for="node-input-func"><i class="fa fa-wrench"></i> JSON Schema</label>
         <input type="hidden" id="node-input-func" autofocus="autofocus">
@@ -86,7 +118,7 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="json-full-schema-validator">
+<script type="text/x-red" data-help-name="JsonSchemaValidatorWithDocu">
     <p>JSON Schema validator</p>
     <p>Put your JSON Schema on editor or in msg.schema and node will validate msg.payload. Error is returned on msg.error.</p>
 </script>
