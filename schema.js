@@ -41,11 +41,22 @@ module.exports = function (RED) {
                 if (node.checkentireobject) {
                     var obj = msg;
 
+                    var flowOrGlobalToHash = (ste) => {
+                        var rVal = {};
+
+                        ste.keys().forEach((nme) => {
+                            rVal[nme] = ste.get(nme)
+                        })
+
+                        return rVal;
+                    }
+
                     switch (node.propertyType) {
-                        case "env":    obj = process.env;           break;
-                        case "msg":    obj = msg;                   break;
-                        case 'flow':   obj = node.context().flow;   break;
-                        case 'global': obj = node.context().global; break;
+                        case "env":    obj = process.env;  break;
+                        case "msg":    obj = msg;          break;
+                        case 'flow':   obj = flowOrGlobalToHash(node.context().flow);   break;
+                        case 'global': obj = flowOrGlobalToHash(node.context().global); break;
+
                         default:
                             done("unknown property type '" + node.propertyType + "' to be check entirely.", msg);
                             return;
@@ -75,7 +86,6 @@ module.exports = function (RED) {
             if (node != null) {
                 try {
                     if (req.body && node.type == "JsonSchemaValidatorWithDocu") {
-                        // const { jsonschema2md } = require('@adobe/jsonschema2md');
                         import('@adobe/jsonschema2md').then( (module) => {
                             const markdown = module.jsonschema2md(req.body, {
                                 includeReadme: false,
@@ -103,5 +113,4 @@ module.exports = function (RED) {
                 res.sendStatus(404);
             }
         });
-
 };

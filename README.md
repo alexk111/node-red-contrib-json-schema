@@ -7,6 +7,12 @@ This validation node does two more things:
 
 Some more details are available in [flow form](https://flowhub.org/f/36690f145d5af6ca).
 
+Also unlike the original, this has only one output instead two. Previously the two outputs where used to diverge messages that where valid those that weren't. Instead this throws an exception that can be caught if validation values. For the author this makes more sense since a validation that fails represents an unknown state of the system, causing failure.
+
+Documentation is created using [jsonschema2md](https://github.com/adobe/jsonschema2md) and stored in the nodes *info* box - **existing content will be replaced**. The intention is to copy&paste the documentation somewhere else but the info box is a good place to put in the first place (alternative would be some debug message).
+
+
+
 ---
 
 # node-red-contrib-json-full-schema-validator

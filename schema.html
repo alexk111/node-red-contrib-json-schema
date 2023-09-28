@@ -5,7 +5,7 @@
         outputs: 1,
         color: "#addb7b",
         icon: "font-awesome/fa-check-circle-o",
-        paletteLabel: "Json Full-Body Schema Validator",
+        paletteLabel: "Json Schema Holistic Validator",
         defaults: {
             name: {value: "" },
             property: {
@@ -19,7 +19,7 @@
             schematitle: { value: "" },
         },
         label: function() {
-            return this.name || this.schematitle || this.type;
+            return this.name || this.schematitle || this._def.paletteLabel || this.type;
         },
         oneditprepare: function() {
             var that = this;
@@ -55,7 +55,6 @@
             
             $('#node-input-generate-md-but').on('click', (e) => {
                 e.preventDefault();
-                console.log( that.editor.getValue() )
                 
                 $.ajax({
                     url:         "JsonSchemaValidatorWithDocu/" + nodeid,
@@ -75,15 +74,21 @@
                     },
 
                     error: function (jqXHR, textStatus, errorThrown) {
-                      RED.notify("JsonSchemaValidatorWithDocu Schema Invalid: " +
+                        if (jqXHR.status == 404) {
+                            RED.notify("Node has not yet been deployed, please deploy.", "error");
+                        } else if (jqXHR.status == 405) {
+                            RED.notify("Not Allowed.", "error");
+                        } else {
+                          RED.notify("JsonSchemaValidatorWithDocu Schema Invalid: " +
                                 textStatus, {
-                        type: "error",
-                        id: nodeid,
-                        timeout: 3000
-                      });
+                            type: "error",
+                            id: nodeid,
+                            timeout: 3000
+                          })
+                        }
                     }
-                });
-            });                
+                })
+            });
         },
 
         oneditsave: function() {
