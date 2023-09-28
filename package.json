@@ -19,7 +19,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "@gregoriusrippenstein/node-red-contrib-validation",
+  "name": "@gregoriusrippenstein/node-red-contrib-validation-and-documentation",
   "node-red": {
     "nodes": {
       "json-schema": "schema.js"

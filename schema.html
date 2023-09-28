@@ -55,6 +55,7 @@
             
             $('#node-input-generate-md-but').on('click', (e) => {
                 e.preventDefault();
+                console.log( that.editor.getValue() )
                 
                 $.ajax({
                     url:         "JsonSchemaValidatorWithDocu/" + nodeid,
@@ -127,7 +128,7 @@
 
     <div class="form-row">
          <button id="node-input-generate-md-but"
-                 class="red-ui-button">Generate Documentation</button>
+                 class="red-ui-button">Replace node Info with Schema Documentation</button>
          <input type="hidden" id="node-input-info"/>
          <input type="hidden" id="node-input-schematitle"/>
     </div>
@@ -150,6 +151,7 @@
         <input type="hidden" id="node-input-func" autofocus="autofocus"/>
         <input type="hidden" id="node-input-noerr"/>
     </div>
+    
     <div class="form-row node-text-editor-row">
         <div style="height: 250px;" class="node-text-editor" id="node-input-func-editor"></div>
     </div>

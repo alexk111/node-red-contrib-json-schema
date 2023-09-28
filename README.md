@@ -5,7 +5,7 @@ This validation node does two more things:
 - valid the *entire* object, previously it was only possible to validate a property on the object
 - generates documentation of the schema and replaces the info details of the node
 
-
+Some more details are available in [flow form](https://flowhub.org/f/36690f145d5af6ca).
 
 ---
 
