@@ -7,11 +7,17 @@ This validation node does two more things:
 
 Some more details are available in [flow form](https://flowhub.org/f/36690f145d5af6ca).
 
-Also unlike the original, this has only one output instead two. Previously the two outputs where used to diverge messages that where valid those that weren't. Instead this throws an exception that can be caught if validation values. For the author this makes more sense since a validation that fails represents an unknown state of the system, causing failure.
+Unlike the original, instead of two outputs this has only one. Previously the two outputs where used to diverge messages that where valid and those that weren't. Instead this throws an exception that can be caught if validation fails. For the author this makes more sense since a validation that fails represents an unknown state of the system, likely to cause failure - fail fast, fail early is the motto.
 
-Documentation is created using [jsonschema2md](https://github.com/adobe/jsonschema2md) and stored in the nodes *info* box - **existing content will be replaced**. The intention is to copy&paste the documentation somewhere else but the info box is a good place to put in the first place (alternative would be some debug message).
+Documentation is created using [jsonschema2md](https://github.com/adobe/jsonschema2md) and stored in the nodes *info* box - **existing content will be replaced**. The intention is to copy and paste that documentation to somewhere else. The info box is a good place to put it in the first place, alternative would be a debug message of some sort.
 
+An example flow is included and can also be viewed [here](https://flowhub.org/f/f21aed28a04a7fd0).
 
+## Validation methods
+
+As with the original, validation is done using the [ajv](https://www.npmjs.com/package/ajv) library, just an updated version.
+
+Validation of `flow` and `global` is perhaps not the best since it makes a copy of [those two](https://github.com/gorenje/node-red-contrib-json-schema/blob/b648c215a79ca07c0df9ec0b1e4d92e579188dd5/schema.js#L44-L58). The environment is validating using [`process.env`](https://github.com/gorenje/node-red-contrib-json-schema/blob/b648c215a79ca07c0df9ec0b1e4d92e579188dd5/schema.js#L55) - this too might not be the best way.
 
 ---
 
