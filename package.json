@@ -2,12 +2,14 @@
   "bugs": {
     "url": "https://github.com/gorenje/node-red-contrib-json-schema/issues"
   },
+
   "bundleDependencies": false,
   "dependencies": {
     "ajv": "^8.12.0",
     "global": "^4.3.2",
     "@adobe/jsonschema2md": "^7.1.5"
   },
+
   "deprecated": false,
   "description": "JSON Schema validator for Node Red",
   "homepage": "https://github.com/gorenje/node-red-contrib-json-schema#readme",
@@ -17,20 +19,28 @@
     "node-red",
     "schema"
   ],
+  
   "license": "MIT",
   "main": "index.js",
   "name": "@gregoriusrippenstein/node-red-contrib-validation-and-documentation",
+  "version": "0.0.1",
   "node-red": {
+    "version": ">=3.0.0",
     "nodes": {
       "json-schema": "schema.js"
     }
   },
+
+  "engines": {
+     "node": ">=16"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gorenje/node-red-contrib-json-schema"
   },
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "0.0.1"
+  }
 }
