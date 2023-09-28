@@ -49,9 +49,9 @@
             "6bf54b386241dc22"
         ],
         "x": 555,
-        "y": 834,
+        "y": 819,
         "w": 927,
-        "h": 148
+        "h": 271
     },
     {
         "id": "62e022983d68c760",
@@ -76,7 +76,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 661,
-        "y": 875,
+        "y": 915,
         "wires": [
             [
                 "33064364f81d1760"
@@ -88,7 +88,7 @@
         "type": "change",
         "z": "f21aed28a04a7fd0",
         "g": "03446b351d684afc",
-        "name": "set value in the global",
+        "name": "set value in the global context",
         "rules": [
             {
                 "t": "set",
@@ -110,8 +110,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 885,
-        "y": 875,
+        "x": 915,
+        "y": 915,
         "wires": [
             [
                 "3a50e82e36e9db6a"
@@ -130,8 +130,8 @@
         "func": "{\n    \"title\": \"Person\",\n    \"type\": \"object\",\n    \"required\": [\n        \"lastName\"\n    ],\n    \"properties\": {\n        \"firstName\": {\n            \"type\": \"string\",\n            \"description\": \"The person's first name.\"\n        },\n        \"lastName\": {\n            \"type\": \"string\",\n            \"description\": \"The person's last name.\"\n        },\n        \"age\": {\n            \"description\": \"Age in years which must be equal to or greater than zero.\",\n            \"type\": \"integer\",\n            \"minimum\": 0\n        }\n    }\n}",
         "info": "## Person Type\n\n`object` ([Person](definition.md))\n\n# Person Properties\n\n| Property                | Type      | Required | Nullable       | Defined by                                                                     |\n| :---------------------- | :-------- | :------- | :------------- | :----------------------------------------------------------------------------- |\n| [firstName](#firstname) | `string`  | Optional | cannot be null | [Person](definition-properties-firstname.md \"undefined#/properties/firstName\") |\n| [lastName](#lastname)   | `string`  | Required | cannot be null | [Person](definition-properties-lastname.md \"undefined#/properties/lastName\")   |\n| [age](#age)             | `integer` | Optional | cannot be null | [Person](definition-properties-age.md \"undefined#/properties/age\")             |\n\n## firstName\n\nThe person's first name.\n\n`firstName`\n\n*   is optional\n\n*   Type: `string`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-firstname.md \"undefined#/properties/firstName\")\n\n### firstName Type\n\n`string`\n\n## lastName\n\nThe person's last name.\n\n`lastName`\n\n*   is required\n\n*   Type: `string`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-lastname.md \"undefined#/properties/lastName\")\n\n### lastName Type\n\n`string`\n\n## age\n\nAge in years which must be equal to or greater than zero.\n\n`age`\n\n*   is optional\n\n*   Type: `integer`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-age.md \"undefined#/properties/age\")\n\n### age Type\n\n`integer`\n\n### age Constraints\n\n**minimum**: the value of this number must greater than or equal to: `0`\n\n---\n## firstName Type\n\n`string`\n\n---\n## lastName Type\n\n`string`\n\n---\n## age Type\n\n`integer`\n\n## age Constraints\n\n**minimum**: the value of this number must greater than or equal to: `0`\n",
         "schematitle": "Person",
-        "x": 1158,
-        "y": 875,
+        "x": 1178,
+        "y": 860,
         "wires": [
             [
                 "08130f8a829210c2"
@@ -153,7 +153,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1376,
-        "y": 875,
+        "y": 915,
         "wires": []
     },
     {
@@ -179,7 +179,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 666,
-        "y": 941,
+        "y": 981,
         "wires": [
             [
                 "0c0744629fd5ba7d"
@@ -191,7 +191,7 @@
         "type": "change",
         "z": "f21aed28a04a7fd0",
         "g": "03446b351d684afc",
-        "name": "delete lastName from flow context",
+        "name": "delete firstName and lastName from global context",
         "rules": [
             {
                 "t": "delete",
@@ -199,11 +199,9 @@
                 "pt": "global"
             },
             {
-                "t": "set",
+                "t": "delete",
                 "p": "firstName",
-                "pt": "global",
-                "to": "firstName",
-                "tot": "str"
+                "pt": "global"
             }
         ],
         "action": "",
@@ -211,8 +209,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 930,
-        "y": 941,
+        "x": 980,
+        "y": 981,
         "wires": [
             [
                 "6bf54b386241dc22"
@@ -231,8 +229,8 @@
         "func": "{\n    \"title\": \"Person\",\n    \"type\": \"object\",\n    \"required\": [\n        \"lastName\"\n    ],\n    \"properties\": {\n        \"firstName\": {\n            \"type\": \"string\",\n            \"description\": \"The person's first name.\"\n        },\n        \"lastName\": {\n            \"type\": \"string\",\n            \"description\": \"The person's last name.\"\n        },\n        \"age\": {\n            \"description\": \"Age in years which must be equal to or greater than zero.\",\n            \"type\": \"integer\",\n            \"minimum\": 0\n        }\n    }\n}",
         "info": "## Person Type\n\n`object` ([Person](definition.md))\n\n# Person Properties\n\n| Property                | Type      | Required | Nullable       | Defined by                                                                     |\n| :---------------------- | :-------- | :------- | :------------- | :----------------------------------------------------------------------------- |\n| [firstName](#firstname) | `string`  | Optional | cannot be null | [Person](definition-properties-firstname.md \"undefined#/properties/firstName\") |\n| [lastName](#lastname)   | `string`  | Required | cannot be null | [Person](definition-properties-lastname.md \"undefined#/properties/lastName\")   |\n| [age](#age)             | `integer` | Optional | cannot be null | [Person](definition-properties-age.md \"undefined#/properties/age\")             |\n\n## firstName\n\nThe person's first name.\n\n`firstName`\n\n*   is optional\n\n*   Type: `string`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-firstname.md \"undefined#/properties/firstName\")\n\n### firstName Type\n\n`string`\n\n## lastName\n\nThe person's last name.\n\n`lastName`\n\n*   is required\n\n*   Type: `string`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-lastname.md \"undefined#/properties/lastName\")\n\n### lastName Type\n\n`string`\n\n## age\n\nAge in years which must be equal to or greater than zero.\n\n`age`\n\n*   is optional\n\n*   Type: `integer`\n\n*   cannot be null\n\n*   defined in: [Person](definition-properties-age.md \"undefined#/properties/age\")\n\n### age Type\n\n`integer`\n\n### age Constraints\n\n**minimum**: the value of this number must greater than or equal to: `0`\n\n---\n## firstName Type\n\n`string`\n\n---\n## lastName Type\n\n`string`\n\n---\n## age Type\n\n`integer`\n\n## age Constraints\n\n**minimum**: the value of this number must greater than or equal to: `0`\n",
         "schematitle": "Person",
-        "x": 1293,
-        "y": 941,
+        "x": 1297,
+        "y": 1049,
         "wires": [
             []
         ]

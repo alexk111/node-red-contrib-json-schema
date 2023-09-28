@@ -13,15 +13,17 @@ module.exports = function (RED) {
         var process = require('process');
         var Ajv = require('ajv');
 
-        var ajv = new Ajv({
-            allErrors: true,
-            messages: true,
-            allowUnionTypes: true
-        });
 
         node.on('input', function (msg, send, done) {
             try {
                 var schema = typeof node.func === 'string' && node.func.trim().length ? JSON.parse(node.func) : typeof msg.schema === 'string' ? JSON.parse(msg.schema) : msg.schema;                
+
+                var ajv = new Ajv({
+                    allErrors: true,
+                    messages: true,
+                    allowUnionTypes: true
+                });
+
                 var validate = ajv.compile(schema);
 
                 var runValidate = (prop) => {
