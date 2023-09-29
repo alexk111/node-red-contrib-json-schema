@@ -19,6 +19,18 @@ The schema can be pasted into the editor pane also located in the property panel
 
 ![img](https://cdn.openmindmap.org/content/1695920460280_Screen_Shot_2023-09-28_at_19.00.38.png)
 
+## Documentation
+
+Documentation can be found in the description panel and from there copied:
+
+![img](https://cdn.openmindmap.org/content/1695985694935_Screen_Shot_2023-09-29_at_13.07.16.png)
+
+The markdown is rendered in the info box of the node:
+
+![img](https://cdn.openmindmap.org/content/1695985680328_Screen_Shot_2023-09-29_at_13.07.25.png)
+
+## Examples
+
 An example flow is included and can also be viewed [here](https://flowhub.org/f/f21aed28a04a7fd0).
 
 ## Validation methods

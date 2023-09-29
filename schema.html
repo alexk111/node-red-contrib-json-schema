@@ -15,7 +15,6 @@
             propertyType: { value:"msg" },
             checkentireobject: { value: false },
             func: { value: "" },
-            info: { value: "" },
             schematitle: { value: "" },
         },
         label: function() {
@@ -63,7 +62,7 @@
                     data:        that.editor.getValue(),
 
                     success: function (resp) {
-                      $("#node-input-info").val( resp.md.markdown.map( (d) => { return d.content }).join("\n---\n") );
+                      this.info = resp.md.markdown.map( (d) => { return d.content }).join("\n---\n");
                       $("#node-input-schematitle").val( resp.md.schema && resp.md.schema[0] && resp.md.schema[0].content && resp.md.schema[0].content.title );
 
                       RED.notify("JsonSchemaValidatorWithDocu Schema update info field", {
@@ -134,7 +133,6 @@
     <div class="form-row">
          <button id="node-input-generate-md-but"
                  class="red-ui-button">Replace node Info with Schema Documentation</button>
-         <input type="hidden" id="node-input-info"/>
          <input type="hidden" id="node-input-schematitle"/>
     </div>
     
