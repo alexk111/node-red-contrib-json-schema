@@ -23,7 +23,7 @@
   "license": "MIT",
   "main": "index.js",
   "name": "@gregoriusrippenstein/node-red-contrib-validation-and-documentation",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "node-red": {
     "version": ">=3.0.0",
     "nodes": {
