@@ -9,8 +9,7 @@
         defaults: {
             name: {value: "" },
             property: {
-                value:"payload", 
-                required:false, 
+                value:"", 
             },
             propertyType: { value:"msg" },
             checkentireobject: { value: false },
@@ -24,7 +23,8 @@
             var that = this;
             $("#node-input-property").typedInput({
                 default:this.propertyType||'msg',
-                types:['msg','flow','global','jsonata','env']
+                types:['msg','flow','global','jsonata','env'],
+                typeField: "#node-input-propertyType"
             });
 
             this.editor = RED.editor.createEditor({
@@ -46,7 +46,7 @@
                 if ( $('#node-input-checkentireobject').is(":checked") ) {
                     $("#node-input-property").typedInput('value', "")
                 } else {
-                    $("#node-input-property").typedInput('value', "payload");
+                    $("#node-input-property").typedInput('value', that.property || "payload");
                 }
             });
             
