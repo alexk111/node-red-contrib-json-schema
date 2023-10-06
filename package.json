@@ -32,7 +32,7 @@
   },
 
   "engines": {
-     "node": ">=16"
+     "node": ">=8"
   },
 
   "repository": {
