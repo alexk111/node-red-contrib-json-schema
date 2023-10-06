@@ -40,7 +40,7 @@ module.exports = function (RED) {
                     }
                 };
 
-                if (node.checkentireobject) {
+                if (node.checkentireobject || node.propertyType.startsWith("full") ) {
                     var obj = msg;
 
                     var flowOrGlobalToHash = (ste) => {
@@ -54,10 +54,25 @@ module.exports = function (RED) {
                     }
 
                     switch (node.propertyType) {
-                        case "env":    obj = process.env;  break;
-                        case "msg":    obj = msg;          break;
-                        case 'flow':   obj = flowOrGlobalToHash(node.context().flow);   break;
-                        case 'global': obj = flowOrGlobalToHash(node.context().global); break;
+                        case "env":    
+                        case "fullenv":    
+                            obj = process.env;  
+                            break;
+                            
+                        case "msg":    
+                        case "fullmsg":    
+                            obj = msg;          
+                            break;
+
+                        case 'flow':   
+                        case 'fullflow':   
+                            obj = flowOrGlobalToHash(node.context().flow);   
+                            break;
+
+                        case 'global': 
+                        case 'fullglobal': 
+                            obj = flowOrGlobalToHash(node.context().global); 
+                            break;
 
                         default:
                             done("unknown property type '" + node.propertyType + "' to be check entirely.", msg);

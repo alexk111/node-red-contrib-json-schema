@@ -8,23 +8,67 @@
         paletteLabel: "Json Schema Holistic Validator",
         defaults: {
             name: {value: "" },
-            property: {
-                value:"", 
-            },
+            property: { value:"payload" },
             propertyType: { value:"msg" },
-            checkentireobject: { value: false },
+            checkentireobject: { value: false }, /* deprecated but siliently supported */
             func: { value: "" },
             schematitle: { value: "" },
         },
+        
         label: function() {
             return this.name || this.schematitle || this._def.paletteLabel || this.type;
         },
+
         oneditprepare: function() {
             var that = this;
+
+            var completeTypes = [
+                {
+                    value: "fullmsg",
+                    label: "Complete msg object",
+                    hasValue: false
+                },
+                {
+                    value: "fullenv",
+                    label: "Complete Environment",
+                    hasValue: false
+                },
+                {
+                    value: "fullflow",
+                    label: "Complete Flow context",
+                    hasValue: false
+                },
+                {
+                    value: "fullglobal",
+                    label: "Complete Global context",
+                    hasValue: false
+                },
+            ];
+
             $("#node-input-property").typedInput({
-                default:this.propertyType||'msg',
-                types:['msg','flow','global','jsonata','env'],
+                default:'msg',
+                types:['msg', 'flow', 'global', 'env'].concat(completeTypes).concat(['jsonata',]),
                 typeField: "#node-input-propertyType"
+            });
+
+            if ( that.property ) {
+                $("#node-input-property").typedInput('value', that.property);
+            }
+            
+            if ( that.propertyType ) {
+                $("#node-input-property").typedInput('type', that.propertyType);
+            }
+
+            if ( that.checkentireobject && !that.propertyType.startsWith("full") ) {
+                $("#node-input-property").typedInput('type', 'full' + that.propertyType);
+            }
+
+            $("#node-input-property").on('change',function() {
+                if ( ['flow','env','global','msg'].indexOf($("#node-input-property").typedInput('type')) > -1 &&
+                    $("#node-input-property").typedInput('value') === ''
+                ) {
+                    $("#node-input-property").typedInput('value','payload');
+                }
             });
 
             this.editor = RED.editor.createEditor({
@@ -40,16 +84,9 @@
                 mode: "ace/mode/json",
                 fields: ['name']
             });
+
             this.editor.focus();
 
-            $('#node-input-checkentireobject').on('change', () => {
-                if ( $('#node-input-checkentireobject').is(":checked") ) {
-                    $("#node-input-property").typedInput('value', "")
-                } else {
-                    $("#node-input-property").typedInput('value', that.property || "payload");
-                }
-            });
-            
             var nodeid = this.id;
 
             $('#node-input-generate-md-but').on('click', (e) => {
@@ -108,6 +145,7 @@
 
             this.propertyType = $("#node-input-property").typedInput('type');
             $("#node-input-propertyType").val(this.propertyType);
+            this.checkentireobject = this.propertyType.startsWith("full")
         },
 
         oneditresize: function(size) {
@@ -138,16 +176,9 @@
     </div>
     
     <div class="form-row">
-        <label for="node-input-property">Property</label>
+        <label for="node-input-property">Object or Property</label>
         <input type="text" id="node-input-property" style="width: 100%"/>
 		<input type="hidden" id="node-input-propertyType"/>
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-checkentireobject" style="min-width: 160px;">
-          Validate entire object?
-        </label>
-        <input type="checkbox" id="node-input-checkentireobject" style="display:inline-block; width:15px; vertical-align:baseline;">
     </div>
 
     <div class="form-row" style="margin-bottom: 0px;">
