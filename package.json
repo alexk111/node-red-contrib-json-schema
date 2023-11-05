@@ -12,7 +12,7 @@
 
   "deprecated": false,
   "description": "JSON Schema validator for Node Red",
-  "homepage": "https://github.com/gorenje/node-red-contrib-json-schema#README.md",
+  "homepage": "https://github.com/gorenje/node-red-contrib-json-schema#readme",
   "keywords": [
     "json",
     "node",
@@ -37,7 +37,7 @@
 
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gorenje/node-red-contrib-json-schema"
+    "url": "https://github.com/gorenje/node-red-contrib-json-schema"
   },
 
   "scripts": {
