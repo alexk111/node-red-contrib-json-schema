@@ -90,6 +90,7 @@ module.exports = function (RED) {
                     }
                 }
             } catch (err) {
+                msg.error = err
                 done("failed to scan schema", msg);
             }
         });
