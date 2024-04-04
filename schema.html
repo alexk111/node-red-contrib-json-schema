@@ -165,8 +165,7 @@
 <script type="text/x-red" data-template-name="JsonSchemaValidatorWithDocu">
 
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name"/>
+        <input type="text" id="node-input-name" placeholder="Name" style="width: 50px !important"/>
     </div>
 
     <div class="form-row">
@@ -175,10 +174,15 @@
          <input type="hidden" id="node-input-schematitle"/>
     </div>
     
+    <hr/>
+
     <div class="form-row">
         <label for="node-input-property">Object or Property</label>
-        <input type="text" id="node-input-property" style="width: 100%"/>
-		<input type="hidden" id="node-input-propertyType"/>
+    </div>
+
+    <div class="form-row">
+        <input type="text" id="node-input-property"/>
+        <input type="hidden" id="node-input-propertyType"/>
     </div>
 
     <div class="form-row" style="margin-bottom: 0px;">
