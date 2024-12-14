@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "node-red-contrib-contrib-json-schema",
+  "name": "node-red-contrib-json-schema",
   "version": "0.1.2",
   "node-red": {
     "version": ">=3.0.0",
