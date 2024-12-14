@@ -1,7 +1,4 @@
 {
-  "bugs": {
-    "url": "https://github.com/gorenje/node-red-contrib-json-schema/issues"
-  },
   "bundleDependencies": false,
   "dependencies": {
     "ajv": "^8.12.0"
@@ -17,7 +14,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "@gregoriusrippenstein/node-red-contrib-validation-and-documentation",
+  "name": "node-red-contrib-validation-and-documentation",
   "version": "0.1.2",
   "node-red": {
     "version": ">=3.0.0",
